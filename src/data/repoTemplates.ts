@@ -710,7 +710,41 @@ docker compose up -d
 
 ---
 
-## 🧪 5. Testing & Verification
+## 📱 5. Native Windows Desktop & Android Mobile App Setup
+
+You can run NGD directly as an installed native app on both Windows (Desktop) and Android (Mobile/Tablet):
+
+### Option A: 1-Click Progressive Web App (Windows & Android)
+- **Windows 10/11**: Open in Edge or Chrome -> Click the **Install** icon in the address bar (or Menu > Apps > Install NGD Multi-Task Bot). It gains a Start Menu tile, standalone window, and desktop shortcut.
+- **Android**: Open in Chrome -> Tap **⋮ (Menu)** -> Tap **"Install app"** or **"Add to Home screen"**. It generates a native WebAPK with app drawer integration and offline support.
+
+### Option B: Standalone Windows .EXE / MSIX (Electron & PWABuilder)
+\`\`\`bash
+# Run with Electron
+npm install electron --save-dev
+npm run app:windows
+
+# Package as Windows MSIX / EXE using PWABuilder
+npx @pwabuilder/cli build -d windows
+\`\`\`
+
+### Option C: Standalone Android APK (Capacitor)
+\`\`\`bash
+# 1. Install Capacitor dependencies
+npm install @capacitor/core @capacitor/android
+
+# 2. Build assets & sync Android project
+npm run build
+npx cap add android
+npx cap sync android
+
+# 3. Open in Android Studio to compile APK/AAB
+npx cap open android
+\`\`\`
+
+---
+
+## 🧪 6. Testing & Verification
 
 Run the built-in diagnostic tool to ensure your audio devices and wake word model are functioning:
 
@@ -1026,5 +1060,72 @@ integrations:
     post_transcripts: false
     notify_on_wake: false
 `,
+  },
+  {
+    filename: 'capacitor.config.json',
+    path: '/capacitor.config.json',
+    description: 'Capacitor Android configuration for packaging NGD into a native Android APK / AAB.',
+    language: 'json',
+    content: `{
+  "appId": "com.ngd.multitaskbot",
+  "appName": "NGD Multi-Task Bot",
+  "webDir": "dist",
+  "bundledWebRuntime": false,
+  "server": {
+    "androidScheme": "https",
+    "cleartext": true
+  },
+  "android": {
+    "allowMixedContent": true,
+    "captureInput": true,
+    "webContentsDebuggingEnabled": true
+  }
+}`,
+  },
+  {
+    filename: 'electron-main.cjs',
+    path: '/electron-main.cjs',
+    description: 'Electron Windows desktop launcher for running NGD in an isolated native desktop window.',
+    language: 'javascript',
+    content: `const { app, BrowserWindow, shell } = require('electron');
+const path = require('path');
+
+function createWindow() {
+  const mainWindow = new BrowserWindow({
+    width: 1280,
+    height: 840,
+    minWidth: 960,
+    minHeight: 640,
+    title: 'NGD Multi-Task Bot',
+    icon: path.join(__dirname, 'public/pwa-512x512.png'),
+    backgroundColor: '#09090b',
+    autoHideMenuBar: true,
+    webPreferences: {
+      nodeIntegration: false,
+      contextIsolation: true,
+      enableRemoteModule: false,
+    },
+  });
+
+  mainWindow.webContents.session.setPermissionRequestHandler((webContents, permission, callback) => {
+    const allowed = ['media', 'geolocation', 'notifications'];
+    if (allowed.includes(permission)) return callback(true);
+    callback(false);
+  });
+
+  const startUrl = process.env.ELECTRON_START_URL || 'http://localhost:3000';
+  mainWindow.loadURL(startUrl);
+
+  mainWindow.webContents.setWindowOpenHandler(({ url }) => {
+    shell.openExternal(url);
+    return { action: 'deny' };
+  });
+}
+
+app.whenReady().then(createWindow);
+
+app.on('window-all-closed', () => {
+  if (process.platform !== 'darwin') app.quit();
+});`,
   },
 ];

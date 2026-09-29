@@ -6,6 +6,7 @@
 import React from 'react';
 import { User } from 'firebase/auth';
 import { GoogleSignInButton } from './GoogleSignInButton';
+import { PWAInstallButton } from './PWAInstallButton';
 import {
   Mic,
   Github,
@@ -17,6 +18,7 @@ import {
   ExternalLink,
   Bot,
   Dog,
+  Smartphone,
 } from 'lucide-react';
 import { RepoConfig } from '../types/repo';
 
@@ -80,7 +82,10 @@ export const Header: React.FC<HeaderProps> = ({
           </div>
 
           {/* Right Action Bar */}
-          <div className="flex items-center space-x-3">
+          <div className="flex items-center space-x-2.5">
+            {/* Native App Installer for Windows & Android */}
+            <PWAInstallButton onOpenPlatformsTab={() => onTabChange('platforms')} />
+
             {/* GitHub Stats Mockup */}
             <div className="hidden lg:flex items-center space-x-1.5 bg-zinc-900 border border-zinc-800 rounded-lg px-2.5 py-1 text-xs text-zinc-300">
               <Github className="w-3.5 h-3.5 text-zinc-400" />
@@ -139,6 +144,7 @@ export const Header: React.FC<HeaderProps> = ({
         <div className="flex space-x-1.5 overflow-x-auto py-2.5 border-t border-zinc-800/60 scrollbar-none text-xs sm:text-sm">
           {[
             { id: 'ngdchat', label: '🤖 NGD Chatbot & Tools', icon: Bot, isHighlight: true },
+            { id: 'platforms', label: '📱 Windows & Android App', icon: Smartphone, isHighlight: true },
             { id: 'overview', label: 'Repository Description & Tags', icon: Github },
             { id: 'readme', label: 'README.md', icon: Sparkles },
             { id: 'installation', label: 'INSTALLATION.md', icon: ExternalLink },

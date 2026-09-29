@@ -1,0 +1,50 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" width="512" height="512">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#2563eb" />
+      <stop offset="50%" stop-color="#3b82f6" />
+      <stop offset="100%" stop-color="#f97316" />
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="16" flood-color="#f97316" flood-opacity="0.4" />
+    </filter>
+  </defs>
+
+  <!-- Background rounded rectangle -->
+  <rect width="512" height="512" rx="128" fill="url(#bgGrad)" />
+
+  <!-- Inner circle -->
+  <circle cx="256" cy="256" r="190" fill="#09090b" opacity="0.4" />
+
+  <!-- Cute Dog Silhouette & Face in crisp white -->
+  <g fill="#ffffff" filter="url(#glow)">
+    <!-- Floppy Left Ear -->
+    <path d="M160 170 C130 130 90 150 90 220 C90 270 120 280 150 250 Z" opacity="0.95" />
+    <!-- Floppy Right Ear -->
+    <path d="M352 170 C382 130 422 150 422 220 C422 270 392 280 362 250 Z" opacity="0.95" />
+
+    <!-- Head -->
+    <path d="M150 230 C150 160 200 130 256 130 C312 130 362 160 362 230 C362 310 320 360 256 360 C192 360 150 310 150 230 Z" />
+    
+    <!-- Eyes -->
+    <ellipse cx="205" cy="220" rx="18" ry="22" fill="#09090b" />
+    <circle cx="200" cy="214" r="7" fill="#ffffff" />
+    <circle cx="212" cy="226" r="3.5" fill="#ffffff" />
+
+    <ellipse cx="307" cy="220" rx="18" ry="22" fill="#09090b" />
+    <circle cx="302" cy="214" r="7" fill="#ffffff" />
+    <circle cx="314" cy="226" r="3.5" fill="#ffffff" />
+
+    <!-- Cute Snout & Nose -->
+    <ellipse cx="256" cy="285" rx="42" ry="32" fill="#f8fafc" />
+    <path d="M242 270 C242 265 270 265 270 270 C270 282 256 292 256 292 C256 292 242 282 242 270 Z" fill="#09090b" />
+    <!-- Happy Smile -->
+    <path d="M256 292 L256 304 M244 302 C250 308 262 308 268 302" stroke="#09090b" stroke-width="4" stroke-linecap="round" fill="none" />
+    <!-- Cheerful Tongue -->
+    <path d="M251 306 C251 316 261 316 261 306 Z" fill="#f43f5e" />
+
+    <!-- Tech Collar with glowing orange bell -->
+    <rect x="180" y="348" width="152" height="18" rx="9" fill="#f97316" />
+    <circle cx="256" cy="374" r="14" fill="#fb923c" stroke="#ffffff" stroke-width="3" />
+  </g>
+</svg>

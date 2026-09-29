@@ -17,6 +17,8 @@ import { ScaffoldingTab } from './components/ScaffoldingTab';
 import { GoogleChatSection } from './components/GoogleChatSection';
 import { VoiceAssistantPlayground } from './components/VoiceAssistantPlayground';
 import { NgdChatbotTab } from './components/NgdChatbotTab';
+import { PlatformsTab } from './components/PlatformsTab';
+import { OfflineIndicator } from './components/OfflineIndicator';
 import { NgdHeroBanner, SubMode } from './components/NgdHeroBanner';
 import { ToastContainer, ToastMessage } from './components/Toast';
 import { Github, Mic, Heart, Bot } from 'lucide-react';
@@ -127,6 +129,9 @@ export default function App() {
       {/* Toast Notification Layer */}
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
+      {/* Offline Status Indicator */}
+      <OfflineIndicator />
+
       {/* Top Studio Hero Banner matching screenshot */}
       <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
         <NgdHeroBanner
@@ -136,6 +141,7 @@ export default function App() {
             setActiveTab('ngdchat');
           }}
           onPostToChat={handlePostToChat}
+          onOpenPlatforms={() => setActiveTab('platforms')}
         />
       </div>
 
@@ -161,6 +167,13 @@ export default function App() {
             onPostToChat={handlePostToChat}
             onShowToast={showToast}
             isChatConnected={!!user}
+          />
+        )}
+
+        {activeTab === 'platforms' && (
+          <PlatformsTab
+            onCopy={handleCopy}
+            onPostToChat={handlePostToChat}
           />
         )}
 

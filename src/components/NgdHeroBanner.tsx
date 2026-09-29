@@ -14,6 +14,7 @@ import {
   Image as ImageIcon,
   Music,
   Share2,
+  Smartphone,
 } from 'lucide-react';
 
 export type SubMode = 'chat' | 'search' | 'maps' | 'transcribe' | 'live' | 'image' | 'music';
@@ -22,12 +23,14 @@ interface NgdHeroBannerProps {
   activeSubMode: SubMode;
   onSubModeChange: (mode: SubMode) => void;
   onPostToChat?: (text: string) => void;
+  onOpenPlatforms?: () => void;
 }
 
 export const NgdHeroBanner: React.FC<NgdHeroBannerProps> = ({
   activeSubMode,
   onSubModeChange,
   onPostToChat,
+  onOpenPlatforms,
 }) => {
   return (
     <div className="bg-gradient-to-r from-blue-950 via-zinc-900 to-orange-950/40 border border-blue-600/30 rounded-3xl p-6 sm:p-8 relative overflow-hidden shadow-2xl">
@@ -69,20 +72,32 @@ export const NgdHeroBanner: React.FC<NgdHeroBannerProps> = ({
           </p>
         </div>
 
-        {/* Quick Share to Google Chat Action */}
-        {onPostToChat && (
-          <button
-            onClick={() =>
-              onPostToChat(
-                `🤖 *Update from NGD Assistant:*\n\nNGD is active with Multi-Turn Gemini 3, Search Grounding, Maps Navigation, Audio Transcription, and Creative Studios!`
-              )
-            }
-            className="px-5 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center space-x-2 shadow-lg shadow-orange-500/30 transition-all cursor-pointer flex-shrink-0"
-          >
-            <Share2 className="w-4 h-4" />
-            <span>Broadcast to Google Chat</span>
-          </button>
-        )}
+        {/* Quick Actions */}
+        <div className="flex flex-col sm:flex-row items-stretch sm:items-center gap-2.5 flex-shrink-0">
+          {onOpenPlatforms && (
+            <button
+              onClick={onOpenPlatforms}
+              className="px-4 py-3 bg-blue-600/90 hover:bg-blue-500 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 border border-blue-400/40 shadow-lg shadow-blue-600/25 transition-all cursor-pointer"
+            >
+              <Smartphone className="w-4 h-4 text-blue-200" />
+              <span>Windows & Android App</span>
+            </button>
+          )}
+
+          {onPostToChat && (
+            <button
+              onClick={() =>
+                onPostToChat(
+                  `🤖 *Update from NGD Assistant:*\n\nNGD is active with Multi-Turn Gemini 3, Search Grounding, Maps Navigation, Audio Transcription, and Creative Studios!`
+                )
+              }
+              className="px-5 py-3 bg-gradient-to-r from-orange-500 to-amber-500 hover:from-orange-600 hover:to-amber-600 text-white rounded-xl text-xs sm:text-sm font-bold flex items-center justify-center space-x-2 shadow-lg shadow-orange-500/30 transition-all cursor-pointer"
+            >
+              <Share2 className="w-4 h-4" />
+              <span>Broadcast to Google Chat</span>
+            </button>
+          )}
+        </div>
       </div>
 
       {/* Feature Sub-Navigation Tabs */}
