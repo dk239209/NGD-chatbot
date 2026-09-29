@@ -17,6 +17,7 @@ import { ScaffoldingTab } from './components/ScaffoldingTab';
 import { GoogleChatSection } from './components/GoogleChatSection';
 import { VoiceAssistantPlayground } from './components/VoiceAssistantPlayground';
 import { NgdChatbotTab } from './components/NgdChatbotTab';
+import { NgdHeroBanner, SubMode } from './components/NgdHeroBanner';
 import { ToastContainer, ToastMessage } from './components/Toast';
 import { Github, Mic, Heart, Bot } from 'lucide-react';
 
@@ -26,6 +27,7 @@ export default function App() {
   const [accessToken, setAccessToken] = useState<string | null>(null);
   const [isLoggingIn, setIsLoggingIn] = useState(false);
   const [activeTab, setActiveTab] = useState<string>('ngdchat');
+  const [subMode, setSubMode] = useState<SubMode>('chat');
   const [chatDraftText, setChatDraftText] = useState<string>('');
   const [toasts, setToasts] = useState<ToastMessage[]>([]);
 
@@ -125,6 +127,18 @@ export default function App() {
       {/* Toast Notification Layer */}
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
+      {/* Top Studio Hero Banner matching screenshot */}
+      <div className="max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 pt-6 pb-2">
+        <NgdHeroBanner
+          activeSubMode={subMode}
+          onSubModeChange={(m) => {
+            setSubMode(m);
+            setActiveTab('ngdchat');
+          }}
+          onPostToChat={handlePostToChat}
+        />
+      </div>
+
       {/* Main App Header */}
       <Header
         repoConfig={repoConfig}
@@ -137,10 +151,13 @@ export default function App() {
       />
 
       {/* Main Workspace Body */}
-      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-8">
+      <main className="flex-1 max-w-7xl w-full mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {activeTab === 'ngdchat' && (
           <NgdChatbotTab
             repoConfig={repoConfig}
+            activeSubMode={subMode}
+            onSubModeChange={setSubMode}
+            hideHeroBanner={true}
             onPostToChat={handlePostToChat}
             onShowToast={showToast}
             isChatConnected={!!user}

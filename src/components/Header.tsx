@@ -16,6 +16,7 @@ import {
   Sparkles,
   ExternalLink,
   Bot,
+  Dog,
 } from 'lucide-react';
 import { RepoConfig } from '../types/repo';
 
@@ -45,7 +46,7 @@ export const Header: React.FC<HeaderProps> = ({
           {/* Logo & Identity */}
           <div className="flex items-center space-x-3">
             <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-tr from-blue-600 via-indigo-600 to-orange-500 shadow-lg shadow-orange-500/20 text-white font-bold">
-              <Bot className="w-5 h-5" />
+              <Dog className="w-5 h-5" />
               <span className="absolute -top-1 -right-1 flex h-3 w-3">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-orange-400 opacity-75"></span>
                 <span className="relative inline-flex rounded-full h-3 w-3 bg-orange-500"></span>
@@ -56,7 +57,15 @@ export const Header: React.FC<HeaderProps> = ({
               <div className="flex items-center space-x-2">
                 <h1 className="text-base sm:text-lg font-bold text-white tracking-tight flex items-center gap-1.5">
                   <span className="text-zinc-400 font-normal">{repoConfig.ownerName}/</span>
-                  <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 via-white to-orange-400">
+                  <span
+                    className="gradient-text-blue-orange font-bold"
+                    style={{
+                      WebkitBackgroundClip: 'text',
+                      WebkitTextFillColor: 'transparent',
+                      backgroundClip: 'text',
+                      display: 'inline-block',
+                    }}
+                  >
                     {repoConfig.repoName}
                   </span>
                 </h1>
@@ -65,7 +74,7 @@ export const Header: React.FC<HeaderProps> = ({
                 </span>
               </div>
               <p className="text-xs text-zinc-400 hidden md:block">
-                NGD Voice Assistant & Multi-Modal Chatbot Studio
+                NGD Voice Assistant & Multi-Task Bot Studio
               </p>
             </div>
           </div>

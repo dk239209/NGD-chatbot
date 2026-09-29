@@ -6,9 +6,9 @@
 import { RepoConfig, LicenseInfo, ScaffoldingFile } from '../types/repo';
 
 export const DEFAULT_REPO_CONFIG: RepoConfig = {
-  repoName: 'ngd-voice-assistant',
+  repoName: 'ngd-multi-task-bot',
   ownerName: 'ngd-ai',
-  tagline: 'Ambient, low-latency conversational AI voice assistant & multi-modal chatbot for smart workspaces',
+  tagline: 'Ambient, low-latency conversational AI voice assistant & multi-task chatbot for smart workspaces',
   description:
     'NGD is a high-performance, open-source AI voice assistant and multi-modal chatbot featuring ultra-fast streaming speech-to-text, neural TTS, Google Search & Maps Grounding, live voice conversations, image studio, and Google Chat integration.',
   version: '1.0.0',
