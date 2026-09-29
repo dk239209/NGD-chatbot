@@ -1,0 +1,8 @@
+{
+  "name": "NGD AI Assistant - Voice & Multi-Modal Studio",
+  "description": "NGD conversational AI voice assistant & chatbot with Search, Maps Grounding, Audio Transcription, Live Voice API, Image Studio, Lyria Music, and Google Chat integration.",
+  "requestFramePermissions": ["microphone"],
+  "majorCapabilities": [
+    "MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"
+  ]
+}
